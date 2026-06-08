@@ -27,6 +27,21 @@ type StepResult = {
   };
 };
 
+type AiMove = {
+  fromWord: string;
+  nextWord: string;
+  rationale: string;
+  model?: string;
+};
+
+type RejectedMove = {
+  from: string;
+  to: string;
+  linkScore: number;
+  targetScore: number;
+  explanation: string;
+};
+
 const challenges: Challenge[] = [
   {
     id: "apple-prison",
@@ -107,6 +122,9 @@ export default function Home() {
   const [latestFeedback, setLatestFeedback] = useState<StepResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isAiPlaying, setIsAiPlaying] = useState(false);
+  const [aiMove, setAiMove] = useState<AiMove | null>(null);
+  const [rejectedMoves, setRejectedMoves] = useState<RejectedMove[]>([]);
   const [error, setError] = useState("");
   const [completed, setCompleted] = useState(false);
 
@@ -121,6 +139,8 @@ export default function Home() {
     setInput("");
     setSteps([]);
     setLatestFeedback(null);
+    setAiMove(null);
+    setRejectedMoves([]);
     setError("");
     setCompleted(false);
   }
@@ -170,11 +190,7 @@ export default function Home() {
     reset(next);
   }
 
-  async function submitStep(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const word = normalizeInput(input);
-    if (!word || isLoading || completed) return;
-
+  async function judgeWord(word: string) {
     setIsLoading(true);
     setError("");
 
@@ -212,11 +228,69 @@ export default function Home() {
         setPath((items) => [...items, word]);
         setInput("");
         if (word === challenge.target) setCompleted(true);
+      } else {
+        setRejectedMoves((items) => [
+          ...items,
+          {
+            from: step.from,
+            to: step.to,
+            linkScore: step.scores.link,
+            targetScore: step.scores.currentToTarget,
+            explanation: step.explanation
+          }
+        ]);
       }
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "AI judgment failed");
     } finally {
       setIsLoading(false);
+    }
+  }
+
+  async function submitStep(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const word = normalizeInput(input);
+    if (!word || isLoading || isAiPlaying || completed) return;
+    setAiMove(null);
+    await judgeWord(word);
+  }
+
+  async function letAiPlay() {
+    if (isLoading || isAiPlaying || completed) return;
+
+    setIsAiPlaying(true);
+    setError("");
+    setAiMove(null);
+
+    try {
+      const response = await fetch("/api/ai-play", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          start: challenge.start,
+          target: challenge.target,
+          path,
+          rejectedMoves
+        })
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data?.message ?? data?.error ?? "AI move failed");
+      }
+
+      const move: AiMove = {
+        fromWord: currentWord,
+        nextWord: normalizeInput(data.nextWord),
+        rationale: String(data.rationale ?? ""),
+        model: data.model
+      };
+      setAiMove(move);
+      await judgeWord(move.nextWord);
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "AI move failed");
+    } finally {
+      setIsAiPlaying(false);
     }
   }
 
@@ -324,10 +398,19 @@ export default function Home() {
                 maxLength={30}
                 onChange={(event) => setInput(event.target.value)}
                 placeholder={`Target: ${challenge.target}`}
+                disabled={isAiPlaying}
                 value={input}
               />
-              <button disabled={isLoading || !input.trim()} type="submit">
+              <button disabled={isLoading || isAiPlaying || !input.trim()} type="submit">
                 {isLoading ? "Judging" : "Submit"}
+              </button>
+              <button
+                className="ai-button"
+                disabled={isLoading || isAiPlaying}
+                onClick={letAiPlay}
+                type="button"
+              >
+                {isAiPlaying ? "AI Playing" : "AI Play"}
               </button>
             </form>
           ) : (
@@ -341,6 +424,21 @@ export default function Home() {
           )}
 
           {error && <p className="error">{error}</p>}
+
+          {aiMove && (
+            <article className="ai-move">
+              <div>
+                <p className="label">AI Move</p>
+                <h3>
+                  {aiMove.fromWord} {"->"} {aiMove.nextWord}
+                </h3>
+              </div>
+              <p>{aiMove.rationale}</p>
+              <div className="ai-meta">
+                {aiMove.model && <span>{aiMove.model}</span>}
+              </div>
+            </article>
+          )}
 
           {latestFeedback && (
             <article className={`feedback ${latestFeedback.strength}`}>

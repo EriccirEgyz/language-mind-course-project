@@ -297,7 +297,7 @@ export async function POST(request: Request) {
       progressDelta = currentToTarget - previousToTarget;
     }
 
-    const linkThreshold = readThreshold("SEMANTIC_LINK_THRESHOLD", 0.6);
+    const linkThreshold = readThreshold("SEMANTIC_LINK_THRESHOLD", 0.55);
     let llmJudge: RelationJudge | null = null;
     if (linkScore !== null && linkScore >= linkThreshold) {
       const judged = await judgeWithLlm({
