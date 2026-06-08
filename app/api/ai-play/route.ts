@@ -136,7 +136,7 @@ export async function POST(request: Request) {
       {
         role: "system",
         content:
-          "You are an AI player in an English noun semantic maze. Reach the target in as few steps as possible while keeping every step semantically natural. Output strict JSON only."
+          "You are an AI player in an English noun mind orienteering game. Reach the target in as few steps as possible while keeping every step semantically natural. Output strict JSON only."
       },
       {
         role: "user",

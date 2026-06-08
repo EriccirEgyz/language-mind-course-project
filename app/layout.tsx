@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Semantic Maze",
+  title: "Mind Orienteering",
   description: "A Language and Mind creative project about the mental lexicon, semantic networks, and AI semantic space"
 };
 

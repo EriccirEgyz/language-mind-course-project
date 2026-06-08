@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <style>
+      .bg { fill: #f7f5f0; }
+      .ink { fill: #202124; }
+      .muted { fill: #6d6a63; }
+      .blue-ink { fill: #2f5f8f; }
+      .panel { fill: #fffdfa; stroke: #ded8ce; stroke-width: 2; }
+      .blue { fill: #e7f0f8; stroke: #8eb0cf; stroke-width: 2; }
+      .green { fill: #e7f3ec; stroke: #8dbf9f; stroke-width: 2; }
+      .amber { fill: #fff2db; stroke: #dcb66d; stroke-width: 2; }
+      .red { fill: #fde9e5; stroke: #dfaaa2; stroke-width: 2; }
+      .title { font: 800 54px "Microsoft YaHei", "Segoe UI", Arial, sans-serif; fill: #202124; }
+      .subtitle { font: 24px "Microsoft YaHei", "Segoe UI", Arial, sans-serif; fill: #6d6a63; }
+      .num { font: 800 19px "Microsoft YaHei", "Segoe UI", Arial, sans-serif; fill: #2f5f8f; }
+      .card-title { font: 800 28px "Microsoft YaHei", "Segoe UI", Arial, sans-serif; fill: #202124; }
+      .body { font: 21px "Microsoft YaHei", "Segoe UI", Arial, sans-serif; fill: #202124; }
+      .small { font: 18px "Microsoft YaHei", "Segoe UI", Arial, sans-serif; fill: #6d6a63; }
+      .label { font: 800 22px "Microsoft YaHei", "Segoe UI", Arial, sans-serif; fill: #2f5f8f; }
+      .word { font: 800 24px "Microsoft YaHei", "Segoe UI", Arial, sans-serif; fill: #202124; }
+      .mono { font: 17px Consolas, "Courier New", monospace; fill: #202124; }
+      .arrow { stroke: #2f5f8f; stroke-width: 4; fill: none; marker-end: url(#arrow); }
+      .arrow-soft { stroke: #8a8175; stroke-width: 3; fill: none; marker-end: url(#arrow-soft); }
+      .arrow-green { stroke: #2f7d5b; stroke-width: 5; fill: none; marker-end: url(#arrow-green); }
+      .dash { stroke-dasharray: 9 8; }
+      .path-line { stroke: #9a948b; stroke-width: 4; fill: none; }
+    </style>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto">
+      <path d="M2,2 L12,7 L2,12 Z" fill="#2f5f8f" />
+    </marker>
+    <marker id="arrow-soft" markerWidth="13" markerHeight="13" refX="11" refY="6.5" orient="auto">
+      <path d="M2,2 L11,6.5 L2,11 Z" fill="#8a8175" />
+    </marker>
+    <marker id="arrow-green" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto">
+      <path d="M2,2 L14,8 L2,14 Z" fill="#2f7d5b" />
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1920" height="1080" />
+
+  <!-- Header -->
+  <text class="title" x="110" y="102">Mind Orienteering 游戏总体框架</text>
+  <text class="subtitle" x="112" y="142">把心理词典想象成一张语义地图：从起点词出发，用自然联想导航到目标词。</text>
+
+  <!-- Main process cards -->
+  <g transform="translate(110 215)">
+    <rect class="blue" x="0" y="0" width="355" height="190" rx="18" />
+    <text class="num" x="32" y="42">01  CHALLENGE</text>
+    <text class="card-title" x="32" y="82">确定起点与目标</text>
+    <text class="body" x="32" y="122">预设 / 随机 / 自定义</text>
+    <text class="small" x="32" y="154">例如：cat → university</text>
+  </g>
+
+  <path class="arrow" d="M490 310 L570 310" />
+
+  <g transform="translate(595 215)">
+    <rect class="amber" x="0" y="0" width="355" height="190" rx="18" />
+    <text class="num" x="32" y="42">02  MOVE</text>
+    <text class="card-title" x="32" y="82">选择下一个词</text>
+    <text class="body" x="32" y="122">玩家输入，或 AI Play 自动选择</text>
+    <text class="small" x="32" y="154">目标：少步数，但每步自然</text>
+  </g>
+
+  <path class="arrow" d="M975 310 L1055 310" />
+
+  <g transform="translate(1080 215)">
+    <rect class="green" x="0" y="0" width="355" height="190" rx="18" />
+    <text class="num" x="32" y="42">03  JUDGE</text>
+    <text class="card-title" x="32" y="82">判断语义相关性</text>
+    <text class="body" x="32" y="122">Embedding 计算相似度</text>
+    <text class="small" x="32" y="154">link score ≥ 0.55 则接受</text>
+  </g>
+
+  <path class="arrow" d="M1460 310 L1540 310" />
+
+  <g transform="translate(1565 215)">
+    <rect class="panel" x="0" y="0" width="245" height="190" rx="18" />
+    <text class="num" x="28" y="42">04  UPDATE</text>
+    <text class="card-title" x="28" y="82">更新路径</text>
+    <text class="body" x="28" y="122">接受：加入路径</text>
+    <text class="body" x="28" y="154">拒绝：反馈原因</text>
+  </g>
+
+  <!-- Main example panel -->
+  <rect class="panel" x="110" y="475" width="1700" height="315" rx="24" />
+  <text class="label" x="150" y="530">示例路径：从动物联想到教育机构</text>
+  <text class="small" x="150" y="562">每个词是心理词典中的一个节点；每一步是一次语义联想。</text>
+
+  <g transform="translate(185 640)">
+    <path class="path-line" d="M80 0 L290 0 L500 0 L735 0 L980 0 L1230 0" />
+    <path class="arrow-green" d="M1230 0 L1390 0" />
+
+    <g transform="translate(0 -45)">
+      <rect class="blue" x="0" y="0" width="160" height="90" rx="18" />
+      <text class="word" x="54" y="56">cat</text>
+    </g>
+    <g transform="translate(220 -45)">
+      <rect class="green" x="0" y="0" width="160" height="90" rx="18" />
+      <text class="word" x="39" y="56">kitten</text>
+    </g>
+    <g transform="translate(430 -45)">
+      <rect class="green" x="0" y="0" width="160" height="90" rx="18" />
+      <text class="word" x="55" y="56">pet</text>
+    </g>
+    <g transform="translate(665 -45)">
+      <rect class="green" x="0" y="0" width="160" height="90" rx="18" />
+      <text class="word" x="38" y="56">owner</text>
+    </g>
+    <g transform="translate(910 -45)">
+      <rect class="green" x="0" y="0" width="180" height="90" rx="18" />
+      <text class="word" x="42" y="56">student</text>
+    </g>
+    <g transform="translate(1310 -50)">
+      <rect class="amber" x="0" y="0" width="220" height="100" rx="20" />
+      <text class="word" x="49" y="61">university</text>
+    </g>
+  </g>
+
+  <g transform="translate(150 725)">
+    <text class="small" x="0" y="0">AI Play 也走同一条规则：先提出 next word，再交给 Judge 判断，而不是自己决定对错。</text>
+  </g>
+
+  <!-- Feedback loop -->
+  <g transform="translate(110 850)">
+    <rect class="red" x="0" y="0" width="500" height="140" rx="18" />
+    <text class="label" x="32" y="44">Rejected Feedback</text>
+    <text class="body" x="32" y="83">如果一步不够相关，会被拒绝</text>
+    <text class="mono" x="32" y="115">cell → bars, score 0.541</text>
+  </g>
+
+  <path class="arrow-soft dash" d="M640 920 L755 920" />
+
+  <g transform="translate(785 850)">
+    <rect class="amber" x="0" y="0" width="500" height="140" rx="18" />
+    <text class="label" x="32" y="44">AI Feedback Loop</text>
+    <text class="body" x="32" y="83">失败记录会传回 AI Play</text>
+    <text class="body" x="32" y="115">下次避免重复同样的选择</text>
+  </g>
+
+  <path class="arrow-soft dash" d="M1315 920 L1430 920" />
+
+  <g transform="translate(1460 850)">
+    <rect class="blue" x="0" y="0" width="350" height="140" rx="18" />
+    <text class="label" x="32" y="44">课程概念</text>
+    <text class="body" x="32" y="83">心理词典 / 语义网络</text>
+    <text class="body" x="32" y="115">激活扩散 / 语境意义</text>
+  </g>
+</svg>

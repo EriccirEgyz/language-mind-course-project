@@ -110,12 +110,12 @@ export async function POST() {
       {
         role: "system",
         content:
-          "You generate varied random challenges for an English noun semantic maze. Return strict JSON only."
+          "You generate varied random challenges for an English noun mind orienteering game. Return strict JSON only."
       },
       {
         role: "user",
         content: [
-          "Generate six different semantic maze challenge candidates.",
+          "Generate six different mind orienteering challenge candidates.",
           `Uniqueness seed: ${uniquenessSeed}`,
           "",
           "Requirements:",

@@ -190,7 +190,7 @@ async function judgeWithLlm(input: {
     {
       role: "system",
       content:
-        "You classify accepted links in a Language and Mind semantic maze. The game asks players to use English nouns, but your job here is only to classify the semantic relation and explain it. Output strict JSON in English."
+        "You classify accepted links in a Language and Mind mind orienteering game. The game asks players to use English nouns, but your job here is only to classify the semantic relation and explain it. Output strict JSON in English."
     },
     {
       role: "user",

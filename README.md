@@ -1,4 +1,4 @@
-# Semantic Maze
+# Mind Orienteering
 
 语言与心智课程创意项目：一个用 AI 语义判断实现的英文名词联想小游戏，用来展示心理词典、语义网络、激活扩散和语境中的意义。
 
@@ -153,7 +153,7 @@ npm ci
 cp .env.example .env.local
 nano .env.local
 npm run build
-pm2 start npm --name semantic-maze -- start
+pm2 start npm --name mind-orienteering -- start
 ```
 
 Caddyfile 示例：

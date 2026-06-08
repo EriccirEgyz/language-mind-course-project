@@ -301,7 +301,7 @@ export default function Home() {
       <section className="topbar">
         <div>
           <p className="eyebrow">Language and Mind Creative Project</p>
-          <h1>Semantic Maze</h1>
+          <h1>Mind Orienteering</h1>
           <p className="subtitle">
             A word-association experiment about the mental lexicon, semantic networks, and spreading activation.
           </p>
