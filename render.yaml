@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: language-mind-course-project
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 20.19.2
+      - key: JINA_API_KEY
+        sync: false
+      - key: JINA_EMBEDDING_MODEL
+        value: jina-embeddings-v3
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: OPENROUTER_USE_EMBEDDINGS
+        value: "true"
+      - key: OPENROUTER_CHAT_MODEL
+        value: qwen/qwen-plus-2025-07-28
+      - key: SEMANTIC_LINK_THRESHOLD
+        value: "0.55"
